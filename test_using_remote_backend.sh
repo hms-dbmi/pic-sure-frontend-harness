@@ -117,6 +117,8 @@ docker run --name=httpd  \
   -d picsureui
 
 echo
+echo "Remember to set $BACKEND_HOST to point at your docker host ip in /etc/hosts."
+echo
 echo "You should now be able to point your browser at $BACKEND_HOST and load the repos in the "
 echo "repos folder into your IDE to perform development."
 echo
