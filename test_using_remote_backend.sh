@@ -80,6 +80,22 @@ if { [ -z $CERT_HOST ] || [ $CERT_HOST != $BACKEND_HOST ]; }; then
 	./configure_local_ssl.sh $BACKEND_HOST
 fi
 
+if [ ! -d $PROJECT_SPECIFIC_UI_PATH/target ]
+then
+  WORKING_DIR=$(pwd)
+  cd $PROJECT_SPECIFIC_UI_PATH
+  mvn clean install -DskipTests
+  cd $WORKING_DIR
+  unset $WORKING_DIR
+fi
+
+if [ ! -d repos/pic-sure-hpds-ui/target ]
+then
+  cd repos/pic-sure-hpds-ui
+  mvn clean install -DskipTests
+  cd ../
+fi
+
 echo $PROJECT_SPECIFIC_UI_PATH
 docker build --build-arg=PROJECT_SPECIFIC_UI_PATH=$PROJECT_SPECIFIC_UI_PATH -t picsureui .
 docker stop httpd || true
