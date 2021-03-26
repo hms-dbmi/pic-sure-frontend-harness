@@ -9,6 +9,7 @@ echo "The localhost.ca.pem must now be imported into your local certificate stor
 echo
 echo "On a mac you can do this by following these steps:"
 echo "   - Open Keychain Access from the launcher"
+echo "   - Delete any existing certificate entry named localhost.ca"
 echo "   - Select Import Items from the File menu."
 echo "   - Navigate to and select the cert/localhost.ca.pem file in the cert folder."
 echo "   - Find and double-click localhost.ca in the list of certificates."
