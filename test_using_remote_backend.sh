@@ -3,6 +3,8 @@
 if [ ! -d repos ]
 then
 	mkdir repos
+  cd repos
+  git clone https://github.com/hms-dbmi/pic-sure-hpds-ui
 	echo
 	echo "The repos directory has been created, please clone any desired project specific override repo in the repos directory."
 	echo "The pic-sure-hpds-ui repo has alread been cloned there for you, please make sure to checkout the"
