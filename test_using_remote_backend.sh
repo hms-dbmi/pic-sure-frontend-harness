@@ -115,3 +115,12 @@ docker run --name=httpd  \
   -p 443:443 \
   --dns 8.8.8.8 \
   -d picsureui
+
+echo
+echo "You should now be able to point your browser at $BACKEND_HOST and load the repos in the "
+echo "repos folder into your IDE to perform development."
+echo
+echo "Any time you update a file in your IDE just re-run this script to update the test"
+echo "environment and refresh your page."
+echo
+
