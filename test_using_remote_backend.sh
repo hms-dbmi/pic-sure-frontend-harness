@@ -56,10 +56,10 @@ then
 	echo
 	echo "Examples : "
 	echo "   export ADDITIONAL_VOLUMES=\"-v $(pwd)/repos/studies-data.json:/usr/local/apache2/htdocs/picsureui/studyAccess/studies-data.json \""
-    echo "   export ADDITIONAL_VOLUMES=\"-v $(pwd)/repos/path_a:/usr/local/apache2/htdocs/path_a -v $(pwd)/path_b:/usr/local/apache2/htdocs/path_b \""
-    echo 
-    echo "Things tend to behave best if you leave a space at the end of the list of volumes as shown above."
-    echo
+  echo "   export ADDITIONAL_VOLUMES=\"-v $(pwd)/repos/path_a:/usr/local/apache2/htdocs/path_a -v $(pwd)/path_b:/usr/local/apache2/htdocs/path_b \""
+  echo 
+  echo "Things tend to behave best if you leave a space at the end of the list of volumes as shown above."
+  echo
 fi
 
 if [ ! -f cert/localhost.ca.pem ] 
@@ -93,7 +93,7 @@ if [ ! -d repos/pic-sure-hpds-ui/target ]
 then
   cd repos/pic-sure-hpds-ui
   mvn clean install -DskipTests
-  cd ../
+  cd ../../
 fi
 
 echo $PROJECT_SPECIFIC_UI_PATH
