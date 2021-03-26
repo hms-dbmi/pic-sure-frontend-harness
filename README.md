@@ -13,3 +13,8 @@ Steps to configure:
 
 Then read and follow the instructions.
 
+Issues that sometimes happen:
+
+docker: Error response from daemon: error while creating mount source path '/host_mnt/Users/jason/avl/2021/pic-sure-frontend-harness/repos/studies-data.json': mkdir /host_mnt/Users/jason/avl/2021/pic-sure-frontend-harness/repos/studies-data.json: file exists.
+
+If you get the above error or a similar one, restart Docker Desktop and run ./test_using_remote_backend.sh again

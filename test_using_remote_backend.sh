@@ -89,7 +89,7 @@ then
   unset $WORKING_DIR
 fi
 
-if [ ! -d repos/pic-sure-hpds-ui/target ]
+if [ ! -d repos/pic-sure-hpds-ui/pic-sure-hpds-ui/target ]
 then
   cd repos/pic-sure-hpds-ui
   mvn clean install -DskipTests
