@@ -46,7 +46,7 @@ Before starting, note that this guide was created for the macOS.
     # Example: export ADDITIONAL_VOLUMES=" -v $(pwd)/repos/studies-data.json:/usr/local/apache2/htdocs/picsureui/studyAccess/studies-data.json "
     #          export ADDITIONAL_VOLUMES=" -v $(pwd)/repos/path_a:/usr/local/apache2/htdocs/path_a -v $(pwd)/path_b:/usr/local/apache2/htdocs/path_b "
     export ADDITIONAL_VOLUMES=" -v $(pwd)/repos/settings.json:/usr/local/apache2/htdocs/picsureui/settings/settings.json "
-   ```ß
+   ```
    
 1. Open your host file: `vim /private/etc/hosts`. You must use your backend domain name as your local host name. This is
     to ensure authenticating works appropriately.
