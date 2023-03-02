@@ -12,11 +12,16 @@ Before starting, note that this guide was created for the macOS.
 
 ### Guide
 1. Clone the frontend harness: `git clone https://github.com/hms-dbmi/pic-sure-frontend-harness.git` 
-   - Navigate into the pic-sure-frontend-harness `cd pic-sure-frontend-harness`
 
-1. Navigate to `pic-sure-frontend-harness/repos` and `git clone https://github.com/hms-dbmi/baseline-pic-sure`
+1. Navigate into the pic-sure-frontend-harness `cd pic-sure-frontend-harness/repos`
+   - Clone the repository for your current UI. For example if you are using the baseline-pic-sure UI you can use the
+   following: `git clone https://github.com/hms-dbmi/baseline-pic-sure`
 
-1. Move the `settings.json` file that was downloaded previously into the `$(pwd)/pic-sure-frontend-harness/repos/base_settings/` directory. <b>Note</b>: If the directory `base_settings` does not exist create it.
+1. Using a web browser navigate to PIC-SURE UI you are utilizing in your frontend harness.
+   1. Reload the page to allow the network tab to populate.
+   1. Search for and download settings.json.
+
+1. Move the `settings.json` file that was downloaded into the `/pic-sure-frontend-harness/repos/` directory.
 
 1. Navigate to `pic-sure-frontend-harness/repos` and clone the baseline-pic-sure repository by running `git clone https://github.com/hms-dbmi/baseline-pic-sure`.
 
@@ -38,17 +43,18 @@ Before starting, note that this guide was created for the macOS.
     # It is usually best to place them in the repos directory so they don't
     # end up getting checked into git.
     # Set \$ADDITIONAL_VOLUMES to a list of space separated -v arguments for the docker run command.
-    # Example: export ADDITIONAL_VOLUMES="-v $(pwd)/repos/studies-data.json:/usr/local/apache2/htdocs/picsureui/studyAccess/studies-data.json"
-    #          export ADDITIONAL_VOLUMES="-v $(pwd)/repos/path_a:/usr/local/apache2/htdocs/path_a -v $(pwd)/path_b:/usr/local/apache2/htdocs/path_b"
-    export ADDITIONAL_VOLUMES="" 
-   ```
+    # Example: export ADDITIONAL_VOLUMES=" -v $(pwd)/repos/studies-data.json:/usr/local/apache2/htdocs/picsureui/studyAccess/studies-data.json "
+    #          export ADDITIONAL_VOLUMES=" -v $(pwd)/repos/path_a:/usr/local/apache2/htdocs/path_a -v $(pwd)/path_b:/usr/local/apache2/htdocs/path_b "
+    export ADDITIONAL_VOLUMES=" -v $(pwd)/repos/settings.json:/usr/local/apache2/htdocs/picsureui/settings/settings.json "
+   ```ß
    
-1. Open your host file: `vim /private/etc/hosts`
+1. Open your host file: `vim /private/etc/hosts`. You must use your backend domain name as your local host name. This is
+    to ensure authenticating works appropriately.
    1. Add a new record to reflect the following: <br />
         ```
       # PIC-SURE UI Harness
-      127.0.0.1       <local host name>
-        ```
+      127.0.0.1       <backend domain name>
+        ``` 
 
 1. In the pic-sure-all-in-one directory run the `test_using_remote_backend.sh` script and wait for it to complete.
 
@@ -58,7 +64,7 @@ Before starting, note that this guide was created for the macOS.
          1. Expand the `Trust` section.
          1. Select  `When using this certificate: Always Trust`
        
-1. Clear your browser cache and restart it. Navigate to `<local host name>` and it should now correctly use the frontend harness.
+1. Clear your browser cache and restart it. Navigate to `<backend domain name>` and it should now correctly use the frontend harness.
 
 ### Debugging
 
