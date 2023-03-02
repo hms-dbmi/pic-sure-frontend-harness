@@ -28,7 +28,7 @@ Additionally, note that this guide was created for the macOS.
 
 5. Move the `settings.json` file that was downloaded previously into the `$(pwd)/pic-sure-frontend-harness/repos/base_settings/` directory. <b>Note</b>: If the directory `base_settings` does not exist create it.
 
-6. Navigate to pic-sure-frontend-harness/repos and clone the baseline-pic-sure repository by running git clone https://github.com/hms-dbmi/baseline-pic-sure.
+6. Navigate to `pic-sure-frontend-harness/repos` and clone the baseline-pic-sure repository by running `git clone https://github.com/hms-dbmi/baseline-pic-sure`.
 
 7. Open `test_using_remote_backend.sh` with a text editor and add the following lines to the top of the file, but just below `#!/bin/bash`:
     ```
