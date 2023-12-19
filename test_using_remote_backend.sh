@@ -67,15 +67,15 @@ else
     "BDC-INT-DEV")
       export BACKEND_HOST=biodatacatalyst.integration.hms.harvard.edu
       export BACKEND_IP=3.80.150.143
-      export PROJECT_SPECIFIC_UI_PATH=repos/biodatacatalyst-pic-sure/biodatacatalyst-ui
-      export ADDITIONAL_VOLUMES=" -v $(pwd)/repos/bdc_settings/variant-data.json:/usr/local/apache2/htdocs/picsureui/studyAccess/variant-data.json -v $(pwd)/repos/bdc_settings/studies-data.json:/usr/local/apache2/htdocs/picsureui/studyAccess/studies-data.json -v $(pwd)/repos/bdc_settings/bdc_settings.json:/usr/local/apache2/htdocs/picsureui/settings/settings.json " 
+      export PROJECT_SPECIFIC_UI_PATH=repos/pic-sure-bdc-frontend/biodatacatalyst-ui
+      export ADDITIONAL_VOLUMES=" -v $(pwd)/repos/settings/variant-data.json:/usr/local/apache2/htdocs/picsureui/studyAccess/variant-data.json -v $(pwd)/repos/settings/studies-data.json:/usr/local/apache2/htdocs/picsureui/studyAccess/studies-data.json -v $(pwd)/repos/settings/settings.json:/usr/local/apache2/htdocs/picsureui/settings/settings.json "
       export IS_OPEN_ACCESS=false
       ;;
     "BDC-INT-A")
       export BACKEND_HOST=biodatacatalyst.integration.hms.harvard.edu
       export BACKEND_IP=3.234.102.16
-      export PROJECT_SPECIFIC_UI_PATH=repos/biodatacatalyst-pic-sure/biodatacatalyst-ui
-      export ADDITIONAL_VOLUMES=" -v $(pwd)/repos/bdc_settings/variant-data.json:/usr/local/apache2/htdocs/picsureui/studyAccess/variant-data.json -v $(pwd)/repos/bdc_settings/studies-data.json:/usr/local/apache2/htdocs/picsureui/studyAccess/studies-data.json -v $(pwd)/repos/bdc_settings/bdc_settings.json:/usr/local/apache2/htdocs/picsureui/settings/settings.json -v $(pwd)/repos/bdc_settings/bannerConfig.json:/usr/local/apache2/htdocs/picsureui/settings/banner_config.json"
+      export PROJECT_SPECIFIC_UI_PATH=repos/pic-sure-bdc-frontend/biodatacatalyst-ui
+      export ADDITIONAL_VOLUMES=" -v $(pwd)/repos/settings/variant-data.json:/usr/local/apache2/htdocs/picsureui/studyAccess/variant-data.json -v $(pwd)/repos/settings/studies-data.json:/usr/local/apache2/htdocs/picsureui/studyAccess/studies-data.json -v $(pwd)/repos/settings/settings.json:/usr/local/apache2/htdocs/picsureui/settings/settings.json -v $(pwd)/repos/settings/bannerConfig.json:/usr/local/apache2/htdocs/picsureui/settings/banner_config.json"
       export IS_OPEN_ACCESS=false
       ;;
     "BDC-INT-A-OPEN")
@@ -83,9 +83,9 @@ else
 #          export BACKEND_IP=3.234.102.16
           export BACKEND_HOST=predev.openpicsure.biodatacatalyst.nhlbi.nih.gov
           export BACKEND_IP=10.129.17.48
-          export PROJECT_SPECIFIC_UI_PATH=repos/biodatacatalyst-pic-sure/biodatacatalyst-ui
-          export OPEN_ACCESS_SPECIFIC_UI_PATH=repos/biodatacatalyst-pic-sure/repos/open-pic-sure-bdc-frontend/ui
-          export ADDITIONAL_VOLUMES=" -v $(pwd)/repos/bdc_settings/variant-data.json:/usr/local/apache2/htdocs/picsureui/studyAccess/variant-data.json -v $(pwd)/repos/bdc_settings/studies-data.json:/usr/local/apache2/htdocs/picsureui/studyAccess/studies-data.json -v $(pwd)/repos/bdc_settings/bdc_settings.json:/usr/local/apache2/htdocs/picsureui/settings/settings.json "
+          export PROJECT_SPECIFIC_UI_PATH=repos/pic-sure-bdc-frontend/biodatacatalyst-ui
+          export OPEN_ACCESS_SPECIFIC_UI_PATH=repos/pic-sure-bdc-frontend/repos/open-pic-sure-bdc-frontend/ui
+          export ADDITIONAL_VOLUMES=" -v $(pwd)/repos/settings/variant-data.json:/usr/local/apache2/htdocs/picsureui/studyAccess/variant-data.json -v $(pwd)/repos/settings/studies-data.json:/usr/local/apache2/htdocs/picsureui/studyAccess/studies-data.json -v $(pwd)/repos/settings/settings.json:/usr/local/apache2/htdocs/picsureui/settings/settings.json "
           export IS_OPEN_ACCESS=true
       ;;
   esac
@@ -94,7 +94,7 @@ else
   then
     mkdir repos
     cd repos
-    git clone https://github.com/hms-dbmi/pic-sure-hpds-ui
+    git clone https://github.com/hms-dbmi/pic-sure-core-frontend
     echo
     echo "The repos directory has been created, please clone any desired project specific override repo in the repos directory."
     echo "The pic-sure-hpds-ui repo has alread been cloned there for you, please make sure to checkout the"
@@ -179,9 +179,9 @@ else
     unset $WORKING_DIR
   fi
 
-  if [ ! -d repos/pic-sure-hpds-ui/pic-sure-hpds-ui/target ]
+  if [ ! -d repos/pic-sure-core-frontend/pic-sure-hpds-ui/target ]
   then
-    cd repos/pic-sure-hpds-ui
+    cd repos/pic-sure-core-frontend
     mvn clean install -DskipTests
     cd ../../
   fi

@@ -24,7 +24,7 @@ COPY ${PROJECT_SPECIFIC_UI_PATH}/horizontal-logo.png ${HTTPD_PREFIX}/htdocs/pics
 COPY ${PROJECT_SPECIFIC_UI_PATH}/stacked-logo.png ${HTTPD_PREFIX}/htdocs/images/logo.png
 COPY ${PROJECT_SPECIFIC_UI_PATH}/login_dots.png ${HTTPD_PREFIX}/htdocs/images/login_dots.png
 
-COPY repos/biodatacatalyst-pic-sure/repos/pic-sure-hpds-ui/pic-sure-hpds-ui/target/webjars/META-INF/resources/webjars /usr/local/apache2/htdocs/picsureui/webjars
+COPY repos/pic-sure-core-frontend/pic-sure-hpds-ui/target/webjars/META-INF/resources/webjars /usr/local/apache2/htdocs/picsureui/webjars
 
 # Replace virtual host config file with ours
 COPY httpd-vhosts.conf ${HTTPD_PREFIX}/conf/extra/httpd-vhosts.conf
@@ -32,8 +32,8 @@ COPY httpd-vhosts.conf ${HTTPD_PREFIX}/conf/extra/httpd-vhosts.conf
 # Enable virtual hosting config file
 RUN sed -i '/^#Include conf.extra.httpd-vhosts.conf/s/^#//' ${HTTPD_PREFIX}/conf/httpd.conf
 
-COPY repos/biodatacatalyst-pic-sure/repos/pic-sure-hpds-ui/pic-sure-hpds-ui/src/main/webapp/picsureui /usr/local/apache2/htdocs/picsureui
-COPY repos/biodatacatalyst-pic-sure/repos/pic-sure-hpds-ui/pic-sure-hpds-ui/src/main/resources /usr/local/apache2/htdocs/picsureui/settings
+COPY repos/pic-sure-core-frontend/pic-sure-hpds-ui/src/main/webapp/picsureui /usr/local/apache2/htdocs/picsureui
+COPY repos/pic-sure-core-frontend/pic-sure-hpds-ui/src/main/resources /usr/local/apache2/htdocs/picsureui/settings
 
 COPY ${PROJECT_SPECIFIC_UI_PATH}/src/main/webapp/picsureui /usr/local/apache2/htdocs/picsureui/
 COPY ${PROJECT_SPECIFIC_UI_PATH}/src/main/webapp/psamaui /usr/local/apache2/htdocs/picsureui/psamaui/
