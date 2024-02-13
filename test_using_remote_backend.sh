@@ -8,10 +8,10 @@ if [ ! -d repos ]
 then
 	mkdir repos
   cd repos
-  git clone https://github.com/hms-dbmi/pic-sure-hpds-ui
+  git clone https://github.com/hms-dbmi/PIC-SURE-Frontend
 	echo
 	echo "The repos directory has been created, please clone any desired project specific override repo in the repos directory."
-	echo "The pic-sure-hpds-ui repo has alread been cloned there for you, please make sure to checkout the"
+	echo "The PIC-SURE-Frontend repo has alread been cloned there for you, please make sure to checkout the"
 	echo "correct branch or git commit"
 	echo
 	exit -1
