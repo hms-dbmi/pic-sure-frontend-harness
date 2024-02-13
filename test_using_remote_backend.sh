@@ -1,6 +1,10 @@
 #!/bin/bash
 
-if [ ! -d repos ]
+export BACKEND_HOST=
+export BACKEND_IP=
+export PROJECT_SPECIFIC_UI_PATH=repos/PIC-SURE-Frontend
+
+if [ ! -d repos ] 
 then
 	mkdir repos
   cd repos
@@ -44,24 +48,6 @@ then
     echo 
 fi
 
-if [ -z "$ADDITIONAL_VOLUMES" ]
-then
-	echo 
-	echo "\$ADDITIONAL_VOLUMES not set, no additional volume mountings will be configured"
-	echo
-	echo "If your specific environment has files that the UI normally gets out of band, this is where you can add them."
-	echo "It is usually best to place them in the repos directory so they don't end up getting checked into git."
-	echo
-	echo "Set \$ADDITIONAL_VOLUMES to a list of space separated -v arguments for the docker run command."
-	echo
-	echo "Examples : "
-	echo "   export ADDITIONAL_VOLUMES=\"-v $(pwd)/repos/studies-data.json:/usr/local/apache2/htdocs/picsureui/studyAccess/studies-data.json \""
-  echo "   export ADDITIONAL_VOLUMES=\"-v $(pwd)/repos/path_a:/usr/local/apache2/htdocs/path_a -v $(pwd)/path_b:/usr/local/apache2/htdocs/path_b \""
-  echo 
-  echo "Things tend to behave best if you leave a space at the end of the list of volumes as shown above."
-  echo
-fi
-
 if [ ! -f cert/localhost.ca.pem ] 
 then
 	echo 
@@ -80,26 +66,16 @@ if { [ -z $CERT_HOST ] || [ $CERT_HOST != $BACKEND_HOST ]; }; then
 	./configure_local_ssl.sh $BACKEND_HOST
 fi
 
-if [ ! -d $PROJECT_SPECIFIC_UI_PATH/target ]
-then
-  WORKING_DIR=$(pwd)
-  cd $PROJECT_SPECIFIC_UI_PATH
-  mvn clean install -DskipTests
-  cd $WORKING_DIR
-  unset $WORKING_DIR
-fi
 
-if [ ! -d repos/pic-sure-hpds-ui/pic-sure-hpds-ui/target ]
-then
-  cd repos/pic-sure-hpds-ui
-  mvn clean install -DskipTests
-  cd ../../
-fi
+cp httpd-vhosts.conf $PROJECT_SPECIFIC_UI_PATH/
+cp -r cert $PROJECT_SPECIFIC_UI_PATH/cert
 
+echo "Stopping and removing any existing httpd container..."
 echo $PROJECT_SPECIFIC_UI_PATH
-docker build --build-arg=PROJECT_SPECIFIC_UI_PATH=$PROJECT_SPECIFIC_UI_PATH -t picsureui .
+cd $PROJECT_SPECIFIC_UI_PATH
 docker stop httpd || true
 docker rm httpd || true
+docker build -t picsureui .
 docker run --name=httpd  \
   -v $(pwd)/httpd-docker-logs/:/usr/local/apache2/logs/ \
   -v $(pwd)/httpd-vhosts.conf:/usr/local/apache2/conf/extra/httpd-vhosts.conf \
@@ -107,7 +83,6 @@ docker run --name=httpd  \
   -v $(pwd)/cert/server.chain:/usr/local/apache2/cert/server.chain \
   -v $(pwd)/cert/server.key:/usr/local/apache2/cert/server.key \
   -v $(pwd)/httpd-docker-logs/ssl_mutex:/usr/local/apache2/logs/ssl_mutex \
-  $ADDITIONAL_VOLUMES \
   -e BACKEND_HOST=$BACKEND_HOST \
   -e BACKEND_IP=$BACKEND_IP \
   --add-host $BACKEND_HOST:$BACKEND_IP \

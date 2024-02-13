@@ -14,16 +14,7 @@ Before starting, note that this guide was created for the macOS.
 1. Clone the frontend harness: `git clone https://github.com/hms-dbmi/pic-sure-frontend-harness.git` 
 
 1. Navigate into the pic-sure-frontend-harness `cd pic-sure-frontend-harness/repos`
-   - Clone the repository for your current UI. For example if you are using the baseline-pic-sure UI you can use the
-   following: `git clone https://github.com/hms-dbmi/baseline-pic-sure`
-
-1. Using a web browser navigate to PIC-SURE UI you are utilizing in your frontend harness.
-   1. Reload the page to allow the network tab to populate.
-   1. Search for and download settings.json.
-
-1. Move the `settings.json` file that was downloaded into the `/pic-sure-frontend-harness/repos/` directory.
-
-1. Navigate to `pic-sure-frontend-harness/repos` and clone the baseline-pic-sure repository by running `git clone https://github.com/hms-dbmi/baseline-pic-sure`.
+   - Clone the repository the UI: `git clone https://github.com/hms-dbmi/PIC-SURE-Frontend.git`
 
 1. Open `test_using_remote_backend.sh` with a text editor and add the following lines to the top of the file, but just below `#!/bin/bash`:
     ```
@@ -35,8 +26,10 @@ Before starting, note that this guide was created for the macOS.
     # PROJECT_SPECIFIC_UI_PATH must be set to theß path for the maven project for UI overrides. 
     # This path should be relative to the repos directory where you cloned the project specific
     # overrides repo.
-    # Example export PROJECT_SPECIFIC_UI_PATH=repos/baseline-pic-sure/ui
+    # Example export PROJECT_SPECIFIC_UI_PATH=repos/PIC-SURE-Frontend
     export PROJECT_SPECIFIC_UI_PATH=<Relative Path>  
+
+    #NOTE: Ignore below for the new UI
 
     # If your specific environment has files that the UI normally gets out of band,
     # this is where you can add them. 
