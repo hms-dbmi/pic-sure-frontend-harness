@@ -4,6 +4,29 @@ export BACKEND_HOST=
 export BACKEND_IP=
 export PROJECT_SPECIFIC_UI_PATH=repos/PIC-SURE-Frontend
 
+if [ -z "$1" ] 
+then
+  echo "Usage: test_using_remote_backend.sh <env>"
+  echo "Options: dev, prod, node"
+  echo "Because it was emtpy, we are assuming prod."
+  ENVIRONMENT="prod"
+else
+  ENVIRONMENT=$1
+fi
+
+case $ENVIRONMENT in
+  "dev")
+    ENV_PORT="5173"
+    ;;
+  "prod")
+    ENV_PORT="3000"
+    ;;
+  *)
+    echo "Invalid environment: $ENVIRONMENT"
+    exit -1
+    ;;
+esac
+
 if [ ! -d repos ] 
 then
 	mkdir repos
@@ -71,11 +94,12 @@ cp httpd-vhosts.conf $PROJECT_SPECIFIC_UI_PATH/
 cp -r cert $PROJECT_SPECIFIC_UI_PATH/cert
 
 echo "Stopping and removing any existing httpd container..."
-echo $PROJECT_SPECIFIC_UI_PATH
+echo "$(pwd)/$PROJECT_SPECIFIC_UI_PATH"
 cd $PROJECT_SPECIFIC_UI_PATH
 docker stop httpd || true
 docker rm httpd || true
-docker build -t picsureui .
+echo $ENVIRONMENT
+docker build -f Dockerfile.$ENVIRONMENT -t frontend .
 docker run --name=httpd  \
   -v $(pwd)/httpd-docker-logs/:/usr/local/apache2/logs/ \
   -v $(pwd)/httpd-vhosts.conf:/usr/local/apache2/conf/extra/httpd-vhosts.conf \
@@ -85,11 +109,13 @@ docker run --name=httpd  \
   -v $(pwd)/httpd-docker-logs/ssl_mutex:/usr/local/apache2/logs/ssl_mutex \
   -e BACKEND_HOST=$BACKEND_HOST \
   -e BACKEND_IP=$BACKEND_IP \
+  -e ENV_PORT=$ENV_PORT \
   --add-host $BACKEND_HOST:$BACKEND_IP \
   -p 80:80 \
   -p 443:443 \
+  -p 5173:5173 \
   --dns 8.8.8.8 \
-  -d picsureui
+  -d frontend
 
 echo
 echo "Remember to set $BACKEND_HOST to point at your docker host ip in /etc/hosts."
@@ -100,4 +126,3 @@ echo
 echo "Any time you update a file in your IDE just re-run this script to update the test"
 echo "environment and refresh your page."
 echo
-

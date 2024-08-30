@@ -4,4 +4,5 @@ repos/
 cert/
 httpd-docker-logs/
 extra-files/
+node_modules/
 
