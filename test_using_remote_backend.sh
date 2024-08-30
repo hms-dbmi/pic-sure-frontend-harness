@@ -15,6 +15,10 @@ else
 fi
 
 case $ENVIRONMENT in
+  "local")
+      ENV_PORT="5173"
+      LOCAL_VMOUNT="-v $(pwd)/$PROJECT_SPECIFIC_UI_PATH:/app"
+      ;;
   "dev")
     ENV_PORT="5173"
     ;;
@@ -107,6 +111,7 @@ docker run --name=httpd  \
   -v $(pwd)/cert/server.chain:/usr/local/apache2/cert/server.chain \
   -v $(pwd)/cert/server.key:/usr/local/apache2/cert/server.key \
   -v $(pwd)/httpd-docker-logs/ssl_mutex:/usr/local/apache2/logs/ssl_mutex \
+  $LOCAL_VMOUNT \
   -e BACKEND_HOST=$BACKEND_HOST \
   -e BACKEND_IP=$BACKEND_IP \
   -e ENV_PORT=$ENV_PORT \
