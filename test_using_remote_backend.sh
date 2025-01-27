@@ -17,7 +17,7 @@ fi
 case $ENVIRONMENT in
   "local")
       ENV_PORT="5173"
-      LOCAL_VMOUNT="-v $(pwd)/$PROJECT_SPECIFIC_UI_PATH:/app"
+      LOCAL_VMOUNT="-v $(pwd)/$PROJECT_SPECIFIC_UI_PATH/src:/app/src -v $(pwd)/$PROJECT_SPECIFIC_UI_PATH/pic-sure-themes.ts:/app/pic-sure-themes.ts"
       ;;
   "dev")
     ENV_PORT="5173"
