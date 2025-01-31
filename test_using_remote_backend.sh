@@ -97,14 +97,15 @@ fi
 cp httpd-vhosts.conf $PROJECT_SPECIFIC_UI_PATH/
 cp -r cert $PROJECT_SPECIFIC_UI_PATH/cert
 
-echo "Stopping and removing any existing httpd container..."
+echo "Stopping and removing any existing httpd-harness container..."
 echo "$(pwd)/$PROJECT_SPECIFIC_UI_PATH"
 cd $PROJECT_SPECIFIC_UI_PATH
 docker stop httpd || true
-docker rm httpd || true
+docker stop httpd-harness || true
+docker rm httpd-harness || true
 echo $ENVIRONMENT
 docker build -f Dockerfile.$ENVIRONMENT -t frontend .
-docker run --name=httpd  \
+docker run --name=httpd-harness  \
   -v $(pwd)/httpd-docker-logs/:/usr/local/apache2/logs/ \
   -v $(pwd)/httpd-vhosts.conf:/usr/local/apache2/conf/extra/httpd-vhosts.conf \
   -v $(pwd)/cert/server.crt:/usr/local/apache2/cert/server.crt \
