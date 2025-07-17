@@ -1,7 +1,5 @@
 #!/bin/bash
 
-export BACKEND_HOST=
-export BACKEND_IP=
 export PROJECT_SPECIFIC_UI_PATH=repos/PIC-SURE-Frontend
 
 if [ -z "$1" ] 
@@ -16,19 +14,38 @@ fi
 
 case $ENVIRONMENT in
   "local")
-      ENV_PORT="5173"
-      LOCAL_VMOUNT="-v $(pwd)/$PROJECT_SPECIFIC_UI_PATH/src:/app/src -v $(pwd)/$PROJECT_SPECIFIC_UI_PATH/pic-sure-themes.ts:/app/pic-sure-themes.ts"
-      ;;
+    ENV_PORT="5173"
+    LOCAL_VMOUNT="-v $(pwd)/$PROJECT_SPECIFIC_UI_PATH/src:/app/src -v $(pwd)/$PROJECT_SPECIFIC_UI_PATH/.env:/app/.env"
+  ;;
   "dev")
     ENV_PORT="5173"
-    ;;
+  ;;
   "prod")
     ENV_PORT="3000"
-    ;;
+  ;;
   *)
     echo "Invalid environment: $ENVIRONMENT"
     exit -1
-    ;;
+  ;;
+esac
+
+case "$2" in
+  # hms-bdc-dev-app - DOES NOT WORK WITH HARNESS - cannot login
+  "nhanes")
+    # lzprod-nhanes-dev
+    export BACKEND_HOST=nhanes-dev.hms.harvard.edu
+    export BACKEND_IP=10.4.169.23
+  ;;
+  "gic-stage")
+    # pl-lzprod-gic-bch-stage-alma
+    export BACKEND_HOST=gic-bch-dev-common-new
+    export BACKEND_IP=10.244.189.168
+  ;;
+  "gic-dev")
+    # pl-lzprod-gic-bch-dev-alma
+    export BACKEND_HOST=gic-bch-dev.pl.hms.harvard.edu
+    export BACKEND_IP=10.244.149.130
+  ;;
 esac
 
 if [ ! -d repos ] 
@@ -105,7 +122,7 @@ docker stop httpd-harness || true
 docker rm httpd-harness || true
 echo $ENVIRONMENT
 docker build -f Dockerfile.$ENVIRONMENT -t frontend .
-docker run --name=httpd-harness  \
+docker run --name=httpd-harness --network=picsure \
   -v $(pwd)/httpd-docker-logs/:/usr/local/apache2/logs/ \
   -v $(pwd)/httpd-vhosts.conf:/usr/local/apache2/conf/extra/httpd-vhosts.conf \
   -v $(pwd)/cert/server.crt:/usr/local/apache2/cert/server.crt \
