@@ -3,4 +3,5 @@ repos/
 cert/
 httpd-docker-logs/
 extra-files/
-
+.env*
+old-repos

@@ -1,0 +1,45 @@
+{
+  "application": [
+    {
+      "project_name": "PIC-SURE-API Build",
+      "project_job_git_key":"PSA",
+      "git_hash": "main"
+    },{
+      "project_name": "PIC-SURE-HPDS Build",
+      "project_job_git_key":"PSH",
+      "git_hash": "main"
+    },{
+      "project_name": "PIC-SURE Auth Micro-App Build",
+      "project_job_git_key":"PSAMA",
+      "git_hash": "main"
+    },{
+      "project_name": "PIC-SURE-Database-Migrations",
+      "project_job_git_key":"PSM",
+      "git_hash": "main"
+    },{
+      "project_name": "PIC-SURE-Frontend Build",
+      "project_job_git_key":"PSF",
+      "git_hash": "main"
+    },{
+      "project_name": "PIC-SURE Dictionary",
+      "project_job_git_key":"DICTIONARY",
+      "git_hash": "main"
+    },{
+      "project_name": "PIC-SURE Dictionary ETL",
+      "project_job_git_key":"DICTIONARY_ETL",
+      "git_hash": "main"
+    },{
+      "project_name": "PIC-SURE Uploader",
+      "project_job_git_key":"UPLOADER",
+      "git_hash": "main"
+    },{
+      "project_name": "PIC-SURE Aggregate Resource",
+      "project_job_git_key":"AGGREGATE",
+      "git_hash": "main"
+    },{
+      "project_name": "PIC-SURE Passthru Service",
+      "project_job_git_key":"PASSTHRU",
+      "git_hash": "main"
+    }
+  ]
+}
